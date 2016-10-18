@@ -1,6 +1,6 @@
 function imgError(image) {
     image.onerror = "";
-    image.src = "images/hotel1.jpg";
+    image.src = "images/hotelDefault.jpg";
     return true;
 }
 countriesIds = [];
@@ -14,7 +14,7 @@ dataCount = 0;
 
 var callbackForCountry = function(countryOpt, countryId, countryName) {
 
-   $.get('http://stage.tourspo.ru:3000/api/v2/country/'+countryId+'+.json',
+   $.get('http://someapi.com/api/v2/country/'+countryId+'+.json',
     function(data){
         var iso_code = data.iso_code;
         if (!iso_code) {
@@ -100,7 +100,7 @@ $(document).ready(function() {
                     },
                     complete: function(jqXHR, textStatus) {
 
-                        serviceUrl = 'http://stage.tourspo.ru:3000/api/v2/hotels+?country_id=&q=&operator_id=';
+                        serviceUrl = 'http://someapi.com/api/v2/hotels+?country_id=&q=&operator_id=';
                         $('#autocomplete').autocomplete({
                             onSearchComplete: function(query, suggestions) {
                                 if (!suggestions.length) {
@@ -115,7 +115,7 @@ $(document).ready(function() {
                                 for (var i = 0; i < countriesIds.length; i++) {
                                     htmlQuery = htmlQuery + 'country_id[]=' + countriesIds[i] + '&';
                                 }
-                                var promise = $.getJSON('http://stage.tourspo.ru:3000/api/v2/hotels+?' + htmlQuery + 'q=' + query + '&operator_id=3', function(data)  {
+                                var promise = $.getJSON('http://someapi.com/api/v2/hotels+?' + htmlQuery + 'q=' + query + '&operator_id=3', function(data)  {
 
                                     lookupCallback(data);
                                 });
@@ -511,7 +511,7 @@ function delayRequest(data, oldTS) {
 
     function requestHotelInfo(data) {
         if (data !== undefined) {
-            request = $.getJSON('http://stage.tourspo.ru:3000/api/v2/hotel/' + data.id + '+.json', function(dataHotel) {
+            request = $.getJSON('http://someapi.com/api/v2/hotel/' + data.id + '+.json', function(dataHotel) {
                 starsCount = dataHotel.star.name.charAt(0);
                 console.log(starsCount);
                 if (currentTS === oldTS) {
